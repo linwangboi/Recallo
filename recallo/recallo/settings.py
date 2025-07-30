@@ -139,7 +139,11 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASS': 'rest_framework.permissions.IsAuthenticated',
 }
+
+
+
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Scientific Way of Remembering',

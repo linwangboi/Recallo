@@ -20,6 +20,7 @@ class StudyItemViewSet(ModelViewSet):
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
     def get_queryset(self):
         user = self.request.user
         if user.is_staff:

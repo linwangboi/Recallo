@@ -41,6 +41,7 @@ class StudyItemsViewsTest(APITestCase):
         response = self.client.get(reverse('studyitem-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
+
     def test_user_cannot_see_others_study_items(self):
         self.client.force_login(self.charlie)
         response = self.client.get(reverse('studyitem-list'))
@@ -55,6 +56,7 @@ class StudyItemsViewsTest(APITestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['title'], 'new study item')
+        
     def test_staff_can_see_all_users(self):
         self.client.force_login(self.staff)
         response = self.client.get(reverse('user-list'))

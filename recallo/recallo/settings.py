@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework_simplejwt",
     "silk",
-    'drf_spectacular',
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -138,37 +138,36 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_PERMISSION_CLASS': 'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PERMISSION_CLASS": "rest_framework.permissions.IsAuthenticated",
 }
 
 
-
-
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Scientific Way of Remembering',
-    'DESCRIPTION': 'Ebbinghause forgetting curve',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Scientific Way of Remembering",
+    "DESCRIPTION": "Ebbinghause forgetting curve",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
 
 USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 import os
+
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.app.github.dev',
+    "localhost",
+    "127.0.0.1",
+    ".app.github.dev",
 ]
 
-codespace_url = os.environ.get('CODESPACE_NAME')
+codespace_url = os.environ.get("CODESPACE_NAME")
 if codespace_url:
-    ALLOWED_HOSTS.append(f'{codespace_url}-8000.app.github.dev')
+    ALLOWED_HOSTS.append(f"{codespace_url}-8000.app.github.dev")
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.app.github.dev",
     "https://automatic-space-pancake-v6q7675w7gx6hjr5-8000.app.github.dev",
-    'https://localhost:8000',
+    "https://localhost:8000",
 ]

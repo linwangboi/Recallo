@@ -1,6 +1,6 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
@@ -33,20 +33,20 @@ class ReviewSession(models.Model):
     study_item = models.ForeignKey(
         StudyItem,
         on_delete=models.CASCADE,
-        related_name='review_sessions',
+        related_name="review_sessions",
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='review_sessions',
+        related_name="review_sessions",
     )
     reviewed_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         ordering = ["-reviewed_at"]
-    
+
     def __str__(self):
         return (
             f"Review for '{self.study_item.title}' "
             f"on {self.reviewed_at} by {self.user.email}"
-        )   
-
+        )

@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
-from api.models import User, StudyItem
-from api.factories import StudyItemFactory, ReviewSessionFactory
+
+from api.factories import ReviewSessionFactory, StudyItemFactory
+from api.models import StudyItem, User
 
 
 class Command(BaseCommand):
@@ -26,10 +27,8 @@ class Command(BaseCommand):
             StudyItemFactory(user=user1)
         for _ in range(10):
             StudyItemFactory(user=user2)
-        
+
         for user in [user1, user2]:
             for item in StudyItem.objects.filter(user=user):
                 for _ in range(5):
                     ReviewSessionFactory(user=user, study_item=item)
-                    
-

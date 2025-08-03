@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from api.models import StudyItem
+from api.models import StudyItem, ReviewSession
+from django.utils import timezone
 
 class UserModelTests(TestCase):
     def test_create_user(self):
@@ -40,3 +41,27 @@ class StudyItemModelTests(TestCase):
         self.assertEqual(titles, ['second', 'study DRF'])
     def test_related_name(self):
         self.assertIn(self.item, self.user.study_items.all())
+
+class ReviewSessionModelTests(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            username='bob',
+            email='bob@bob.com',
+            password='bob'
+        )
+        self.item = StudyItem.objects.create(
+            user=self.user,
+            title="study DRF",
+            description='Study django rest framework basics'
+        )
+        self.review = ReviewSession.objects.create(
+            user=self.user,
+            study_item=self.item,
+            reviewed_at=timezone.now()
+        )
+    def test_string_representation_review_session(self):
+        result = str(self.review)
+        self.assertIn("Review for 'study DRF'", result)
+        self.assertIn("bob@bob.com", result)
+        self.assertIn(str(self.review.reviewed_at), result)

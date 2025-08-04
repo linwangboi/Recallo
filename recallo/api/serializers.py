@@ -6,8 +6,8 @@ from .models import ReviewSession, StudyItem, User
 class ReviewSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewSession
-        fields = ["study_item", "user", "reviewed_at"]
-        read_only_fields = ["user", "reviewed_at"]
+        fields = ["study_item", "user", "reviewed_at", 'sequence_number']
+        read_only_fields = ["user", "reviewed_at", 'sequence_number']
 
 
 class StudyItemSerializer(serializers.ModelSerializer):
@@ -19,12 +19,13 @@ class StudyItemSerializer(serializers.ModelSerializer):
             "id",
             "user",
             "title",
+            'status',
             "description",
             "created_at",
             "updated_at",
             "review_sessions",
         ]
-        read_only_fields = ["user", "created_at", "updated_at"]
+        read_only_fields = ["user", "created_at", "updated_at", 'status']
 
 
 class UserSerializer(serializers.ModelSerializer):

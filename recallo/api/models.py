@@ -27,6 +27,7 @@ class StudyItem(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+        
 
     class Meta:
         ordering = [
@@ -49,6 +50,7 @@ class ReviewSession(models.Model):
         related_name="review_sessions",
     )
     reviewed_at = models.DateTimeField(auto_now_add=True)
+    sequence_number = models.PositiveSmallIntegerField()
 
     class Meta:
         ordering = ["-reviewed_at"]
@@ -56,5 +58,5 @@ class ReviewSession(models.Model):
     def __str__(self):
         return (
             f"Review for '{self.study_item.title}' "
-            f"on {self.reviewed_at} by {self.user.email}"
+            f"(Sequence {self.sequence_number}) on {self.reviewed_at} by {self.user.email}"
         )

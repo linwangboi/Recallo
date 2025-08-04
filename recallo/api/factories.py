@@ -1,5 +1,6 @@
 import factory
 from factory.django import DjangoModelFactory
+from django.utils import timezone
 
 from .models import ReviewSession, StudyItem
 
@@ -14,6 +15,7 @@ class StudyItemFactory(DjangoModelFactory):
 
     title = factory.Faker("sentence", nb_words=4)
     description = factory.Faker("paragraph", nb_sentences=4)
+    cycle_start_date = factory.LazyFunction(timezone.now)
 
 
 class ReviewSessionFactory(DjangoModelFactory):
@@ -27,3 +29,4 @@ class ReviewSessionFactory(DjangoModelFactory):
     @factory.lazy_attribute
     def study_item(self):
         raise ValueError("You must provide a study item")
+    sequence_number = factory.Iterator([1, 2, 3, 4, 5])

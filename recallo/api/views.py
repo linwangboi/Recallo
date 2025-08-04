@@ -5,6 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 from .models import ReviewSession, StudyItem, User
 from .serializers import (ReviewSessionSerializer, StudyItemSerializer,
                           UserSerializer)
+from datetime import date
 
 
 # Create your views here.
@@ -48,4 +49,25 @@ class ReviewSessionViewSet(ModelViewSet):
         study_item = get_object_or_404(
             StudyItem, id=study_item_id, user=self.request.user
         )
-        serializer.save(user=self.request.user, study_item=study_item)
+        previous_sessions = ReviewSession.objects.filter(
+            user=self.request.user,
+            study_item=study_item
+        ).order_by('-sequence_number')
+        if previous_sessions.exists():
+            last_sequence = previous_sessions.first().sequence_number
+            next_sequence = last_sequence + 1
+        else:
+            next_sequence = 1
+        next_sequence = min(next_sequence, 5)
+
+
+        serializer.save(
+            user=self.request.user, 
+            study_item=study_item,
+            sequence_number=next_sequence,
+            review_at=date.today()
+        )
+        if next_sequence >= 5:
+            study_item.status = 'COMPLETED'
+            study_item.save()
+            

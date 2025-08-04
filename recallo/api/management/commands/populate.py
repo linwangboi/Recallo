@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 
 from api.factories import ReviewSessionFactory, StudyItemFactory
 from api.models import StudyItem, User
+import random 
 
 
 class Command(BaseCommand):
@@ -31,4 +32,8 @@ class Command(BaseCommand):
         for user in [user1, user2]:
             for item in StudyItem.objects.filter(user=user):
                 for _ in range(5):
-                    ReviewSessionFactory(user=user, study_item=item)
+                    ReviewSessionFactory(
+                        user=user,
+                        study_item=item,
+                        sequence_number=random.choices([1, 2, 3, 4, 5])
+                    )

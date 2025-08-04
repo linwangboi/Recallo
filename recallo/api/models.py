@@ -12,11 +12,19 @@ class User(AbstractUser):
 
 
 class StudyItem(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'p', 'Pending'
+        COMPLETED = 'c', 'Completed'
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="study_items"
     )
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=1,
+        choices=Status.choices,
+        default=Status.PENDING
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

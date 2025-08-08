@@ -1,3 +1,5 @@
+# recallo/api/views.py 
+
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
@@ -65,7 +67,7 @@ class ReviewSessionViewSet(ModelViewSet):
             user=self.request.user, 
             study_item=study_item,
             sequence_number=next_sequence,
-            review_at=date.today()
+            reviewed_at=date.today()
         )
         if next_sequence >= 5:
             study_item.status = 'COMPLETED'

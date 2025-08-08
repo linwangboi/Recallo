@@ -55,7 +55,7 @@ class ReviewSessionModelTests(TestCase):
             description="Study django rest framework basics",
         )
         self.review = ReviewSession.objects.create(
-            user=self.user, study_item=self.item, reviewed_at=timezone.now()
+            user=self.user, study_item=self.item, reviewed_at=timezone.now(), sequence_number=1
         )
 
     def test_string_representation_review_session(self):

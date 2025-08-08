@@ -75,28 +75,28 @@ class ReviewSessionViewsTest(APITestCase):
             user=self.bob, title="bobitem1", description="bobdescription1"
         )
         self.bobreview1 = ReviewSession.objects.create(
-            user=self.bob, study_item=self.bobitem1
+            user=self.bob, study_item=self.bobitem1, sequence_number=1
         )
         self.bobitem2 = StudyItem.objects.create(
             user=self.bob, title="bobitem2", description="bobdescription2"
         )
         self.bobreview2 = ReviewSession.objects.create(
-            user=self.bob, study_item=self.bobitem2
+            user=self.bob, study_item=self.bobitem2, sequence_number=1
         )
 
-    def test_staff_can_see_all_study_items(self):
+    def test_staff_can_see_all_review_sessions(self):
         self.client.force_login(self.staff)
         response = self.client.get(reverse("reviewsession-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
-    def test_user_cannot_see_others_study_items(self):
+    def test_user_cannot_see_others_review_sessions(self):
         self.client.force_login(self.charlie)
         response = self.client.get(reverse("reviewsession-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
-    def test_user_can_create_study_item(self):
+    def test_user_can_create_review_sessions(self):
         self.client.force_login(self.bob)
         response = self.client.post(
             reverse("reviewsession-list"),

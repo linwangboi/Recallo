@@ -1,3 +1,4 @@
+# recallo/api/management/commands/populate.py
 from django.core.management.base import BaseCommand
 
 from api.factories import ReviewSessionFactory, StudyItemFactory

@@ -7,9 +7,9 @@ from .models import ReviewSession, StudyItem, User
 class ReviewSessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewSession
-        fields = ["study_item", "user", "reviewed_at", 'sequence_number']
-        read_only_fields = ["user", "reviewed_at", 'sequence_number']
-
+        # ✅ UPDATED — added 'done' and 'scheduled_for' so API can handle them
+        fields = ["study_item", "user", "reviewed_at", "sequence_number", "done", "scheduled_for"]
+        read_only_fields = ["user", "reviewed_at", "sequence_number", "scheduled_for"]
 
 class StudyItemSerializer(serializers.ModelSerializer):
     review_sessions = ReviewSessionSerializer(many=True, read_only=True)
